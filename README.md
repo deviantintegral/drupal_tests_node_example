@@ -1,11 +1,18 @@
 # Example implementation of Drupal Tests on CircleCI
 
-This repository shows running module tests, using the existing test for the
-Drupal 8 node module. As well, a sample Behat test has been added to
-demonstrate Behat tests and screenshot capture.
+[drupal_tests](https://github.com/deviantintegral/drupal_tests) enables quick,
+easy, and repeatable tests for individual Drupal modules. While it can replace
+the Drupal testbot for projects outside of Drupal.org, it's most appropriate
+for private modules shared among multiple sites or an internal distribution.
+
+This repository shows how to run module tests, using the existing tests for the
+Drupal 8 node module. As well, a sample Behat test has been added to the node
+module demonstrate Behat tests and screenshot capture.
 
 This repository also overrides the default variable for the module name, as
 I didn't want to simply call this GitHub repository 'node'.
+
+Walk through the notes below to see how this works!
 
 # Commits of note
 
