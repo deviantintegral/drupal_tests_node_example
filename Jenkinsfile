@@ -22,6 +22,9 @@ pipeline {
           image 'mariadb:10.3'
         }
       }
+      steps {
+        sh 'mysql --version'
+      }
     }
   }
 }
