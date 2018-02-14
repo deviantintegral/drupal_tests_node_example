@@ -8,7 +8,7 @@ node {
         docker.image('selenium/standalone-chrome-debug:3.7.1-beryllium').inside("--link ${c.id}:drupal") {
             /* We should wait, but it's not simple and Drupal has to install anyways. */
         }
-        docker.image('andrewberry/drupal_tests:0.2.0').inside("--link ${c.id}:db ${c.id}:webdriver") {
+        docker.image('andrewberry/drupal_tests:0.2.0').inside("--link ${c.id}:db --link ${c.id}:webdriver") {
         sh '''#!/bin/bash
 ln -s $WORKSPACE /var/www/html/modules/node
 cd /var/www/html
