@@ -17,7 +17,7 @@ default:
         javascript:
           selenium2:
             browser: chrome
-            wd_host: http://localhost:4444/wd/hub
+            wd_host: http://webdriver:4444/wd/hub
     Drupal\DrupalExtension:
       blackbox: ~
       api_driver: 'drupal'
