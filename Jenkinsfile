@@ -14,10 +14,10 @@ pipeline {
       }
     }
     stage('mariadb') {
+      environment {
+        MYSQL_ALLOW_EMPTY_PASSWORD = 1
+      }
       agent {
-        environtment {
-          MYSQL_ALLOW_EMPTY_PASSWORD = 1
-        }
         docker {
           image 'mariadb:10.3'
         }
