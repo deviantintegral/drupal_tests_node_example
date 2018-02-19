@@ -67,7 +67,7 @@ update_dependencies: &update_dependencies
     - run:
         working_directory: /var/www/html
         command: |
-          ./update-dependencies.sh $CIRCLE_PROJECT_REPONAME
+          ./update-dependencies.sh node
 
     - persist_to_workspace:
         root: /var/www/html
