@@ -44,16 +44,16 @@ defaults: &defaults
 # We use the composer.json as a way to determine if we can cache our build.
 restore_cache: &restore_cache
   keys:
-  - v1-dependencies-{{ checksum "composer.json" }}
+  - v2-dependencies-{{ checksum "composer.json" }}-{{ checksum "../../composer.json" }}
   # fallback to using the latest cache if no exact match is found
-  - v1-dependencies-
+  - v2-dependencies-
 
 # If composer.json hasn't changed, restore the vendor directory. We don't
 # restore the lock file so we ensure we get updated dependencies.
 save_cache: &save_cache
   paths:
-    - ./vendor
-  key: v1-dependencies-{{ checksum "composer.json" }}
+    - ../../vendor
+  key: v2-dependencies-{{ checksum "composer.json" }}-{{ checksum "../../composer.json" }}
 
 # Run Drupal unit and kernel tests as one job. This command invokes the test.sh
 # hook.
@@ -63,12 +63,13 @@ unit_kernel_tests: &unit_kernel_tests
     - checkout
 
     - restore_cache: *restore_cache
-    - save_cache: *save_cache
 
     - run:
         working_directory: /var/www/html
         command: |
           ./test.sh node
+
+    - save_cache: *save_cache
 
     - store_test_results:
         path: /var/www/html/artifacts/phpunit
@@ -82,12 +83,13 @@ behat_tests: &behat_tests
     - checkout
 
     - restore_cache: *restore_cache
-    - save_cache: *save_cache
 
     - run:
         working_directory: /var/www/html
         command: |
           ./test-js.sh node
+
+    - save_cache: *save_cache
 
     - store_test_results:
         path: /var/www/html/artifacts/behat
@@ -101,12 +103,13 @@ code_sniffer: &code_sniffer
     - checkout
 
     - restore_cache: *restore_cache
-    - save_cache: *save_cache
 
     - run:
         working_directory: /var/www/html
         command: |
           ./code-sniffer.sh node
+
+    - save_cache: *save_cache
 
     - store_test_results:
         path: /var/www/html/artifacts/phpcs
@@ -120,12 +123,14 @@ code_coverage: &code_coverage
     - checkout
 
     - restore_cache: *restore_cache
-    - save_cache: *save_cache
 
     - run:
         working_directory: /var/www/html
         command: |
           ./code-coverage-stats.sh node
+
+    - save_cache: *save_cache
+
     - store_artifacts:
         path: /var/www/html/artifacts
 
