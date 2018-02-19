@@ -164,7 +164,7 @@ code_coverage: &code_coverage
 version: 2
 jobs:
   update-dependencies:
-     <<: *update-dependencies
+     <<: *update_dependencies
   run-unit-kernel-tests:
      <<: *unit_kernel_tests
   run-behat-tests:
