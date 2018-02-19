@@ -59,11 +59,11 @@
   <!-- Filter for coverage reports. -->
   <filter>
     <whitelist processUncoveredFilesFromWhitelist="true">
-      <directory>../modules/node</directory>
+      <directory>../modules/drupal_tests_node_example</directory>
       <!-- By definition test classes have no tests. -->
       <exclude>
-        <directory>../modules/node/tests</directory>
-        <directory>../modules/node/test_modules</directory>
+        <directory>../modules/drupal_tests_node_example/tests</directory>
+        <directory>../modules/drupal_tests_node_example/test_modules</directory>
       </exclude>
     </whitelist>
   </filter>
