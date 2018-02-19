@@ -163,6 +163,8 @@ code_coverage: &code_coverage
 # Declare all of the jobs we should run.
 version: 2
 jobs:
+  update-dependencies:
+     <<: *update-dependencies
   run-unit-kernel-tests:
      <<: *unit_kernel_tests
   run-behat-tests:
