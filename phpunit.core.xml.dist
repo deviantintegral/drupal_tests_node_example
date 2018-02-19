@@ -45,6 +45,10 @@
     <testsuite name="functional">
       <file>./tests/TestSuites/FunctionalTestSuite.php</file>
     </testsuite>
+    <testsuite name="nonfunctional">
+      <file>./tests/TestSuites/UnitTestSuite.php</file>
+      <file>./tests/TestSuites/KernelTestSuite.php</file>
+    </testsuite>
     <testsuite name="functional-javascript">
       <file>./tests/TestSuites/FunctionalJavascriptTestSuite.php</file>
     </testsuite>
