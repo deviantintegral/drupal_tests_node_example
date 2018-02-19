@@ -1,4 +1,4 @@
-# Example implementation of Drupal Tests on CircleCI
+# Example implementation of Drupal Tests on CircleCI!
 
 [drupal_tests](https://github.com/deviantintegral/drupal_tests) enables quick,
 easy, and repeatable tests for individual Drupal modules. While it can replace
