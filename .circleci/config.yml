@@ -144,6 +144,7 @@ code_coverage: &code_coverage
         working_directory: /var/www/html
         command: |
           ./code-coverage-stats.sh node
+
     - store_artifacts:
         path: /var/www/html/artifacts
 
