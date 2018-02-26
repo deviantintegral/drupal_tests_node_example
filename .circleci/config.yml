@@ -61,8 +61,6 @@ update_dependencies: &update_dependencies
   steps:
     - checkout
 
-    - restore_cache: *restore_cache
-
     - run:
         working_directory: /var/www/html
         command: |
