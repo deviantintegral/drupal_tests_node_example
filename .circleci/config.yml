@@ -41,29 +41,12 @@ defaults: &defaults
 # 'steps' configuration, though we can have defaults for individual step
 # properties.
 
-# We use the composer.json as a way to determine if we can cache our build.
-restore_cache: &restore_cache
-  keys:
-  - v1-dependencies-{{ checksum "composer.json" }}
-  # fallback to using the latest cache if no exact match is found
-  - v1-dependencies-
-
-# If composer.json hasn't changed, restore the vendor directory. We don't
-# restore the lock file so we ensure we get updated dependencies.
-save_cache: &save_cache
-  paths:
-    - ./vendor
-  key: v1-dependencies-{{ checksum "composer.json" }}
-
 # Run Drupal unit and kernel tests as one job. This command invokes the test.sh
 # hook.
 unit_kernel_tests: &unit_kernel_tests
   <<: *defaults
   steps:
     - checkout
-
-    - restore_cache: *restore_cache
-    - save_cache: *save_cache
 
     - run:
         working_directory: /var/www/html
@@ -81,9 +64,6 @@ behat_tests: &behat_tests
   steps:
     - checkout
 
-    - restore_cache: *restore_cache
-    - save_cache: *save_cache
-
     - run:
         working_directory: /var/www/html
         command: |
@@ -100,9 +80,6 @@ code_sniffer: &code_sniffer
   steps:
     - checkout
 
-    - restore_cache: *restore_cache
-    - save_cache: *save_cache
-
     - run:
         working_directory: /var/www/html
         command: |
@@ -118,9 +95,6 @@ code_coverage: &code_coverage
   <<: *defaults
   steps:
     - checkout
-
-    - restore_cache: *restore_cache
-    - save_cache: *save_cache
 
     - run:
         working_directory: /var/www/html
