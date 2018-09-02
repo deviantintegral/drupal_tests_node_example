@@ -16,12 +16,9 @@
 defaults: &defaults
   docker:
     # specify the version you desire here (avoid latest except for testing)
-    - image: andrewberry/drupal_tests:0.2.0
+    - image: andrewberry/drupal_tests:drupal-86
 
-    # Use our fork until https://github.com/wernight/docker-phantomjs/pull/3 is
-    # merged.
-    # - image: wernight/phantomjs:2.1.1
-    - image: selenium/standalone-chrome-debug:3.7.1-beryllium
+    - image: selenium/standalone-chrome-debug:3.14.0-beryllium
 
     - image: mariadb:10.3
       environment:
@@ -44,31 +41,51 @@ defaults: &defaults
 # We use the composer.json as a way to determine if we can cache our build.
 restore_cache: &restore_cache
   keys:
-  - v1-dependencies-{{ checksum "composer.json" }}
+  - v4-dependencies-{{ checksum "composer.json" }}-{{ checksum "../../composer.json" }}
   # fallback to using the latest cache if no exact match is found
-  - v1-dependencies-
+  - v4-dependencies-
 
-# If composer.json hasn't changed, restore the vendor directory. We don't
-# restore the lock file so we ensure we get updated dependencies.
+# If composer.json hasn't changed, restore the Composer cache directory. We
+# don't restore the lock file so we ensure we get updated dependencies.
 save_cache: &save_cache
   paths:
-    - ./vendor
-  key: v1-dependencies-{{ checksum "composer.json" }}
+    - /root/.composer/cache/files
+  key: v4-dependencies-{{ checksum "composer.json" }}-{{ checksum "../../composer.json" }}
+
+# Install composer dependencies into the workspace to share with all jobs.
+update_dependencies: &update_dependencies
+  <<: *defaults
+  steps:
+    - checkout
+
+    - restore_cache: *restore_cache
+
+    - run:
+        working_directory: /var/www/html
+        command: |
+          ./update-dependencies.sh $CIRCLE_PROJECT_REPONAME
+
+    - save_cache: *save_cache
+
+    - persist_to_workspace:
+        root: /var/www/html
+        paths:
+          - .
 
 # Run Drupal unit and kernel tests as one job. This command invokes the test.sh
 # hook.
 unit_kernel_tests: &unit_kernel_tests
   <<: *defaults
   steps:
-    - checkout
+    - attach_workspace:
+        at: /var/www/html
 
-    - restore_cache: *restore_cache
-    - save_cache: *save_cache
+    - checkout
 
     - run:
         working_directory: /var/www/html
         command: |
-          ./test.sh node
+          ./test.sh $CIRCLE_PROJECT_REPONAME
 
     - store_test_results:
         path: /var/www/html/artifacts/phpunit
@@ -79,18 +96,16 @@ unit_kernel_tests: &unit_kernel_tests
 behat_tests: &behat_tests
   <<: *defaults
   steps:
-    - checkout
+    - attach_workspace:
+        at: /var/www/html
 
-    - restore_cache: *restore_cache
-    - save_cache: *save_cache
+    - checkout
 
     - run:
         working_directory: /var/www/html
         command: |
-          ./test-js.sh node
+          ./test-js.sh $CIRCLE_PROJECT_REPONAME
 
-    - store_test_results:
-        path: /var/www/html/artifacts/behat
     - store_artifacts:
         path: /var/www/html/artifacts
 
@@ -98,15 +113,15 @@ behat_tests: &behat_tests
 code_sniffer: &code_sniffer
   <<: *defaults
   steps:
-    - checkout
+    - attach_workspace:
+        at: /var/www/html
 
-    - restore_cache: *restore_cache
-    - save_cache: *save_cache
+    - checkout
 
     - run:
         working_directory: /var/www/html
         command: |
-          ./code-sniffer.sh node
+          ./code-sniffer.sh $CIRCLE_PROJECT_REPONAME
 
     - store_test_results:
         path: /var/www/html/artifacts/phpcs
@@ -117,21 +132,23 @@ code_sniffer: &code_sniffer
 code_coverage: &code_coverage
   <<: *defaults
   steps:
-    - checkout
+    - attach_workspace:
+        at: /var/www/html
 
-    - restore_cache: *restore_cache
-    - save_cache: *save_cache
+    - checkout
 
     - run:
         working_directory: /var/www/html
         command: |
-          ./code-coverage-stats.sh node
+          ./code-coverage-stats.sh $CIRCLE_PROJECT_REPONAME
     - store_artifacts:
         path: /var/www/html/artifacts
 
 # Declare all of the jobs we should run.
 version: 2
 jobs:
+  update-dependencies:
+     <<: *update_dependencies
   run-unit-kernel-tests:
      <<: *unit_kernel_tests
   run-behat-tests:
@@ -147,9 +164,17 @@ workflows:
   # Declare a workflow that runs all of our jobs in parallel.
   test_and_lint:
     jobs:
-      - run-unit-kernel-tests
-      - run-behat-tests
-      - run-code-sniffer
+      - update-dependencies
+      - run-unit-kernel-tests:
+          requires:
+            - update-dependencies
+      - run-behat-tests:
+          requires:
+            - update-dependencies
+      - run-code-sniffer:
+          requires:
+            - update-dependencies
       - run-code-coverage:
           requires:
+            - update-dependencies
             - run-unit-kernel-tests
