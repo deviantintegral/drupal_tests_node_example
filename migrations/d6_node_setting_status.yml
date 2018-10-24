@@ -1,20 +1,21 @@
-id: d6_node_setting_sticky
-label: Node type 'sticky' setting
+id: d6_node_setting_status
+label: Node type 'status' setting
 migration_tags:
   - Drupal 6
+  - Configuration
 source:
   plugin: d6_node_type
   constants:
     entity_type: node
-    field_name: sticky
+    field_name: status
 process:
   entity_type: 'constants/entity_type'
   bundle: type
   field_name: 'constants/field_name'
   label:
     plugin: default_value
-    default_value: 'Sticky at the top of lists'
-  'default_value/0/value': 'options/sticky'
+    default_value: 'Publishing status'
+  'default_value/0/value': 'options/status'
 destination:
   plugin: entity:base_field_override
 migration_dependencies:

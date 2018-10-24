@@ -1,20 +1,21 @@
-id: d6_node_setting_status
-label: Node type 'status' setting
+id: d6_node_setting_promote
+label: Node type 'promote' setting
 migration_tags:
   - Drupal 6
+  - Configuration
 source:
   plugin: d6_node_type
   constants:
     entity_type: node
-    field_name: status
+    field_name: promote
 process:
   entity_type: 'constants/entity_type'
   bundle: type
   field_name: 'constants/field_name'
   label:
     plugin: default_value
-    default_value: 'Publishing status'
-  'default_value/0/value': 'options/status'
+    default_value: 'Promoted to front page'
+  'default_value/0/value': 'options/promote'
 destination:
   plugin: entity:base_field_override
 migration_dependencies:
