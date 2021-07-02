@@ -32,7 +32,7 @@ defaults: &defaults
   # 'checkout' supports a path key, but not on locals where you test with the
   # circleci CLI tool.
   # https://discuss.circleci.com/t/bug-circleci-build-command-ignores-checkout-path-config/13004
-  working_directory: /var/www/html/modules/drupal_tests_node_example
+  working_directory: /var/www/html/modules/node
 
 # YAML does not support merging of lists. That means we can't have a default
 # 'steps' configuration, though we can have defaults for individual step
@@ -63,7 +63,7 @@ update_dependencies: &update_dependencies
     - run:
         working_directory: /var/www/html
         command: |
-          ./update-dependencies.sh $CIRCLE_PROJECT_REPONAME
+          ./update-dependencies.sh node
 
     - save_cache: *save_cache
 
@@ -85,7 +85,7 @@ unit_kernel_tests: &unit_kernel_tests
     - run:
         working_directory: /var/www/html
         command: |
-          ./test.sh $CIRCLE_PROJECT_REPONAME
+          ./test.sh node
 
     - store_test_results:
         path: /var/www/html/artifacts/phpunit
@@ -105,7 +105,7 @@ functional_tests: &functional_tests
     - run:
         working_directory: /var/www/html
         command: |
-          ./test-functional.sh $CIRCLE_PROJECT_REPONAME
+          ./test-functional.sh node
 
     - store_test_results:
         path: /var/www/html/artifacts/phpunit
@@ -125,7 +125,7 @@ functional_js_tests: &functional_js_tests
     - run:
         working_directory: /var/www/html
         command: |
-          ./test-functional-js.sh $CIRCLE_PROJECT_REPONAME
+          ./test-functional-js.sh node
 
     - store_test_results:
         path: /var/www/html/artifacts/phpunit
@@ -144,7 +144,7 @@ behat_tests: &behat_tests
     - run:
         working_directory: /var/www/html
         command: |
-          ./behat.sh $CIRCLE_PROJECT_REPONAME
+          ./behat.sh node
 
     - store_artifacts:
         path: /var/www/html/artifacts
@@ -161,7 +161,7 @@ code_sniffer: &code_sniffer
     - run:
         working_directory: /var/www/html
         command: |
-          ./code-sniffer.sh $CIRCLE_PROJECT_REPONAME
+          ./code-sniffer.sh node
 
     - store_test_results:
         path: /var/www/html/artifacts/phpcs
@@ -180,7 +180,7 @@ code_coverage: &code_coverage
     - run:
         working_directory: /var/www/html
         command: |
-          ./code-coverage-stats.sh $CIRCLE_PROJECT_REPONAME
+          ./code-coverage-stats.sh node
     - store_artifacts:
         path: /var/www/html/artifacts
 
