@@ -20,8 +20,8 @@ class DrupalTestsNodeExampleFeatureContext extends RawDrupalContext implements S
   public static function prepare(BeforeSuiteScope $scope) {
     /** @var \Drupal\Core\Extension\ModuleHandler $moduleHandler */
     $moduleHandler = \Drupal::service('module_handler');
-    if (!$moduleHandler->moduleExists('drupal_tests_node_example')) {
-      \Drupal::service('module_installer')->install(['drupal_tests_node_example']);
+    if (!$moduleHandler->moduleExists('node')) {
+      \Drupal::service('module_installer')->install(['node']);
     }
 
     // Also uninstall the inline form errors module for easier testing.
