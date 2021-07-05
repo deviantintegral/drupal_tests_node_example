@@ -50,7 +50,7 @@ restore_cache: &restore_cache
 save_cache: &save_cache
   paths:
     - /root/.composer/cache/files
-  key: v4-dependencies-{{ checksum "composer.json" }}-{{ checksum "../../composer.json" }}
+  key: v5-dependencies-{{ checksum "composer.json" }}-{{ checksum "../../composer.json" }}
 
 # Install composer dependencies into the workspace to share with all jobs.
 update_dependencies: &update_dependencies
