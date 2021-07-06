@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<ruleset name="Drupal Tests Node Example" namespace="DrupalTestsNodeExample\CS\Standard">
+    <rule ref="vendor/drupal/coder/coder_sniffer/Drupal">
+        <exclude name="Drupal.Arrays.Array.LongLineDeclaration" />
+        <exclude name="Drupal.Semantics.FunctionTriggerError.TriggerErrorTextLayoutRelaxed" />
+    </rule>
+
+    <exclude-pattern>*.css</exclude-pattern>
+</ruleset>
