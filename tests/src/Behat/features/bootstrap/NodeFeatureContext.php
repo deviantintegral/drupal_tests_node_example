@@ -5,11 +5,11 @@ use Behat\Testwork\Hook\Scope\BeforeSuiteScope;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 
 /**
- * Behat steps for testing the drupal_tests_node_example module.
+ * Behat steps for testing the drupal_tests_node_example (copy of node) module.
  *
  * @codingStandardsIgnoreStart
  */
-class DrupalTestsNodeExampleFeatureContext extends RawDrupalContext implements SnippetAcceptingContext {
+class NodeFeatureContext extends RawDrupalContext implements SnippetAcceptingContext {
 
   /**
    * Setup for the test suite, enable some required modules and add content
