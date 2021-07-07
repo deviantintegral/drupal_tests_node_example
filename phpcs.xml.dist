@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ruleset name="Drupal Tests Node Example" namespace="DrupalTestsNodeExample\CS\Standard">
+    <rule ref="vendor/drupal/coder/coder_sniffer/Drupal">
+        <exclude name="Drupal.Arrays.Array.ArrayClosingIndentation" />
+        <exclude name="Drupal.Arrays.Array.ArrayIndentation" />
+        <exclude name="Drupal.Arrays.Array.LongLineDeclaration" />
+        <exclude name="Drupal.Commenting.ClassComment.Missing" />
+        <exclude name="Drupal.Commenting.Deprecated.DeprecatedMissingSeeTag" />
+        <exclude name="Drupal.Commenting.Deprecated.DeprecatedVersionFormat" />
+        <exclude name="Drupal.Commenting.Deprecated.DeprecatedWrongSeeUrlFormat" />
+        <exclude name="Drupal.Commenting.Deprecated.IncorrectTextLayout" />
+        <exclude name="Drupal.Commenting.DocCommentAlignment.SpaceBeforeStar" />
+        <exclude name="Drupal.Commenting.DocComment.LongFullStop" />
+        <exclude name="Drupal.Commenting.DocComment.MissingShort" />
+        <exclude name="Drupal.Commenting.DocComment.ParamNotFirst" />
+        <exclude name="Drupal.Commenting.DocComment.ShortFullStop" />
+        <exclude name="Drupal.Commenting.DocComment.ShortNotCapital" />
+        <exclude name="Drupal.Commenting.DocComment.ShortSingleLine" />
+        <exclude name="Drupal.Commenting.FunctionComment.IncorrectTypeHint" />
+        <exclude name="Drupal.Commenting.FunctionComment.Missing" />
+        <exclude name="Drupal.Commenting.FunctionComment.MissingParamComment" />
+        <exclude name="Drupal.Commenting.FunctionComment.MissingParamType" />
+        <exclude name="Drupal.Commenting.FunctionComment.MissingReturnType" />
+        <exclude name="Drupal.Commenting.FunctionComment.ParamMissingDefinition" />
+        <exclude name="Drupal.Commenting.FunctionComment.TypeHintMissing" />
+        <exclude name="Drupal.Commenting.InlineComment.NotCapital" />
+        <exclude name="Drupal.Commenting.InlineComment.SpacingAfter" />
+        <exclude name="Drupal.Commenting.InlineComment.SpacingBefore" />
+        <exclude name="Drupal.Commenting.InlineComment.InvalidEndChar" />
+        <exclude name="Drupal.Commenting.InlineVariableComment.VarInline" />
+        <exclude name="Drupal.Commenting.InlineVariableComment.VarInlineOrder" />
+        <exclude name="Drupal.Commenting.TodoComment.TodoFormat" />
+        <exclude name="Drupal.Commenting.VariableComment.Missing" />
+        <exclude name="Drupal.Commenting.VariableComment.WrongStyle" />
+        <exclude name="Drupal.Files.LineLength.TooLong" />
+        <exclude name="Drupal.NamingConventions.ValidVariableName.LowerCamelName" />
+        <exclude name="Drupal.NamingConventions.ValidFunctionName.ScopeNotCamelCaps" />
+        <exclude name="Drupal.Semantics.FunctionTriggerError.TriggerErrorPeriodAfterSeeUrl" />
+        <exclude name="Drupal.Semantics.FunctionTriggerError.TriggerErrorTextLayoutRelaxed" />
+        <exclude name="Drupal.Semantics.FunctionTriggerError.TriggerErrorTextLayoutStrict" />
+        <exclude name="Drupal.Semantics.FunctionTriggerError.TriggerErrorVersion" />
+
+        <exclude name="Generic.CodeAnalysis.UselessOverridingMethod.Found" />
+
+        <exclude name="Squiz.CSS.Indentation.Incorrect" />
+        <exclude name="Squiz.WhiteSpace.ScopeKeywordSpacing.Incorrect" />
+    </rule>
+
+    <exclude-pattern>*.css</exclude-pattern>
+    <exclude-pattern>*.js</exclude-pattern>
+</ruleset>

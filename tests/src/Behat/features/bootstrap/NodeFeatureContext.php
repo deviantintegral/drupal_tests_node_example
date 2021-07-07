@@ -5,7 +5,7 @@ use Behat\Testwork\Hook\Scope\BeforeSuiteScope;
 use Drupal\DrupalExtension\Context\RawDrupalContext;
 
 /**
- * Behat steps for testing the node module.
+ * Behat steps for testing the drupal_tests_node_example (copy of node) module.
  *
  * @codingStandardsIgnoreStart
  */
